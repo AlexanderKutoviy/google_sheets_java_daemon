@@ -41,22 +41,17 @@ public class Quickstart {
 
     public static Credential authorize() throws IOException {
         // Load client secrets.
-        InputStream in =
-                Quickstart.class.getResourceAsStream("/client_secret.json");
-        GoogleClientSecrets clientSecrets =
-                GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
+        InputStream in = Quickstart.class.getResourceAsStream("/client_secret.json");
+        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
 
         // Build flow and trigger user authorization request.
         GoogleAuthorizationCodeFlow flow =
-                new GoogleAuthorizationCodeFlow.Builder(
-                        HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
+                new GoogleAuthorizationCodeFlow.Builder(HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
                         .setDataStoreFactory(DATA_STORE_FACTORY)
                         .setAccessType("offline")
                         .build();
-        Credential credential = new AuthorizationCodeInstalledApp(
-                flow, new LocalServerReceiver()).authorize("user");
-        System.out.println(
-                "Credentials saved to " + DATA_STORE_DIR.getAbsolutePath());
+        Credential credential = new AuthorizationCodeInstalledApp(flow, new LocalServerReceiver()).authorize("user");
+        System.out.println("Credentials saved to " + DATA_STORE_DIR.getAbsolutePath());
         return credential;
     }
 
@@ -71,10 +66,9 @@ public class Quickstart {
         // Build a new authorized API client service.
         Sheets service = getSheetsService();
 
-        // Prints the names and majors of students in a sample spreadsheet:
-        // https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
-        String spreadsheetId = "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms";
-        String range = "Class Data!A2:F";
+//        https://docs.google.com/spreadsheets/d/10tQ5MHGGiDcoqTdEV2Pupy6wh171wyRbjSH-eXbaKC8/edit?usp=sharing
+        String spreadsheetId = "10tQ5MHGGiDcoqTdEV2Pupy6wh171wyRbjSH-eXbaKC8";
+        String range = "A2:F";
         ValueRange response = service.spreadsheets().values()
                 .get(spreadsheetId, range)
                 .execute();
@@ -82,9 +76,7 @@ public class Quickstart {
         if (values == null || values.size() == 0) {
             System.out.println("No data found.");
         } else {
-            System.out.println("Name, Major");
             for (List row : values) {
-                // Print columns A and E, which correspond to indices 0 and 4.
                 System.out.printf("%s, %s, %s, %s, %s, %s\n", row.get(0), row.get(1), row.get(2), row.get(3), row.get(4), row.get(5));
             }
         }
