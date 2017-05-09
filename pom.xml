@@ -15,5 +15,11 @@
             <artifactId>sqlite-jdbc</artifactId>
             <version>3.16.1</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-sheets</artifactId>
+            <version>v4-rev473-1.22.0</version>
+        </dependency>
     </dependencies>
 </project>

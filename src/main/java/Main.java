@@ -15,15 +15,15 @@ public class Main {
 
             stmt = c.createStatement();
             String sql = "SELECT * FROM temps;";
-            ResultSet rs =stmt.executeQuery(sql);
-            while ( rs.next() ) {
-                System.out.println( "RS = " + rs.toString() );
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                System.out.println("RS = " + rs.toString());
             }
             rs.close();
             stmt.close();
             c.close();
-        } catch ( Exception e ) {
-            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
     }
