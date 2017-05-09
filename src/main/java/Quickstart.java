@@ -20,42 +20,14 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Quickstart {
-    /**
-     * Application name.
-     */
-    private static final String APPLICATION_NAME =
-            "Google Sheets API Java Quickstart";
 
-    /**
-     * Directory to store user credentials for this application.
-     */
+    private static final String APPLICATION_NAME = "Google Sheets API Java Quickstart";
     private static final java.io.File DATA_STORE_DIR = new java.io.File(
             System.getProperty("user.home"), ".credentials/sheets.googleapis.com-java-quickstart");
-
-    /**
-     * Global instance of the {@link FileDataStoreFactory}.
-     */
     private static FileDataStoreFactory DATA_STORE_FACTORY;
-
-    /**
-     * Global instance of the JSON factory.
-     */
-    private static final JsonFactory JSON_FACTORY =
-            JacksonFactory.getDefaultInstance();
-
-    /**
-     * Global instance of the HTTP transport.
-     */
+    private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
     private static HttpTransport HTTP_TRANSPORT;
-
-    /**
-     * Global instance of the scopes required by this quickstart.
-     * <p>
-     * If modifying these scopes, delete your previously saved credentials
-     * at ~/.credentials/sheets.googleapis.com-java-quickstart
-     */
-    private static final List<String> SCOPES =
-            Arrays.asList(SheetsScopes.SPREADSHEETS_READONLY);
+    private static final List<String> SCOPES = Arrays.asList(SheetsScopes.SPREADSHEETS_READONLY);
 
     static {
         try {
@@ -67,12 +39,6 @@ public class Quickstart {
         }
     }
 
-    /**
-     * Creates an authorized Credential object.
-     *
-     * @return an authorized Credential object.
-     * @throws IOException
-     */
     public static Credential authorize() throws IOException {
         // Load client secrets.
         InputStream in =
@@ -94,12 +60,6 @@ public class Quickstart {
         return credential;
     }
 
-    /**
-     * Build and return an authorized Sheets API client service.
-     *
-     * @return an authorized Sheets API client service
-     * @throws IOException
-     */
     public static Sheets getSheetsService() throws IOException {
         Credential credential = authorize();
         return new Sheets.Builder(HTTP_TRANSPORT, JSON_FACTORY, credential)
@@ -114,7 +74,7 @@ public class Quickstart {
         // Prints the names and majors of students in a sample spreadsheet:
         // https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
         String spreadsheetId = "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms";
-        String range = "Class Data!A2:E";
+        String range = "Class Data!A2:F";
         ValueRange response = service.spreadsheets().values()
                 .get(spreadsheetId, range)
                 .execute();
@@ -125,7 +85,7 @@ public class Quickstart {
             System.out.println("Name, Major");
             for (List row : values) {
                 // Print columns A and E, which correspond to indices 0 and 4.
-                System.out.printf("%s, %s\n", row.get(0), row.get(4));
+                System.out.printf("%s, %s, %s, %s, %s, %s\n", row.get(0), row.get(1), row.get(2), row.get(3), row.get(4), row.get(5));
             }
         }
     }
